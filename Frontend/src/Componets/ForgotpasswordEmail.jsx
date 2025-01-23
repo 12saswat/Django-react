@@ -13,8 +13,6 @@ const ForgotpasswordEmail = () => {
     setError("");
 
     try {
-      const token = JSON.parse(localStorage.getItem("token"))?.access;
-      if (!token) throw new Error("No access token found. Please log in.");
       const response = await axios.post(
         "http://127.0.0.1:8000/api/user/send-reset-password-email/",
         { email }

@@ -28,7 +28,7 @@ const Login = () => {
       console.log("Token:", response.data.token); // Save this token for authentication
     } catch (err) {
       if (err.response) {
-        const errors = err.response.data.errors;
+        const { errors } = err.response.data.errors;
         if (errors.non_field_errors) {
           setMessage(errors.non_field_errors[0]);
         } else {

@@ -9,8 +9,6 @@ const Profile = () => {
     const fetchUserProfile = async () => {
       try {
         const token = JSON.parse(localStorage.getItem("token"))?.access;
-        if (!token) throw new Error("No access token found. Please log in.");
-
         const res = await axios.get("http://127.0.0.1:8000/api/user/profile/", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,18 +25,32 @@ const Profile = () => {
     fetchUserProfile();
   }, []);
 
+  const handelLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login"; // Redirect after logout
+  };
+
   return (
     <div>
       {error ? (
         <h1>{error}</h1>
       ) : data ? (
-        <div>
-          <h1>
-            Welcome, <span className="text-xl text-slate-700">{data.name}</span>
-          </h1>
-          <p>
-            email: <span className="text-xl text-blue-800">{data.email}</span>
-          </p>
+        <div className="flex justify-around items-center pt-10">
+          <div>
+            <h1>
+              Welcome,{" "}
+              <span className="text-xl text-slate-700">{data.name}</span>
+            </h1>
+            <p>
+              email: <span className="text-xl text-blue-800">{data.email}</span>
+            </p>
+          </div>
+          <button
+            onClick={handelLogout}
+            className="bg-blue-600 text-[#ffffff] font-semibold hover:font-bold rounded-md px-4 py-1 hover:bg-transparent transition duration-500 hover:text-green-500"
+          >
+            Logout
+          </button>
         </div>
       ) : (
         <h1>Loading...</h1>

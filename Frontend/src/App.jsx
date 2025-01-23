@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Profile from "./Componets/Profile";
 import ForgotPassword from "./Componets/ForgotPassword";
 import ForgotpasswordEmail from "./Componets/ForgotpasswordEmail";
+import ProtectedRoute from "./Componets/ProtectedRoute";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -18,15 +19,26 @@ const App = () => {
     },
     {
       path: "/profile",
-      element: <Profile />,
+
+      element: (
+        <ProtectedRoute>
+          <Profile />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/forgotPassword",
+
       element: <ForgotPassword />,
     },
     {
       path: "/forgotPasswordEmail",
-      element: <ForgotpasswordEmail />,
+
+      element: (
+        <ProtectedRoute>
+          <ForgotpasswordEmail />
+        </ProtectedRoute>
+      ),
     },
   ]);
   return (
